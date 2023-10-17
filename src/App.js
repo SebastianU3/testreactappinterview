@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import jsonData from "./viewData.json";
+import { ViewData } from "./ViewData";
+import { Button } from "./Button";
+import { AddData } from "./AddData";
 
 function App() {
+  const [data, setData] = useState(jsonData.data);
+
+  const [isOpen, setIsOpen] = useState(0);
+
+  function handleClickAddData() {
+    setIsOpen(!isOpen);
+  }
+
+  function handleAddData(newData) {
+    setData((data) => [...data, newData]);
+    handleClickAddData();
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {console.log(data)}
+      <ViewData data={data} />
+      {isOpen || <Button onHandle={handleClickAddData}>Add Data</Button>}
+      {isOpen && <AddData onSetData={handleAddData} />}
+    </>
   );
 }
 
