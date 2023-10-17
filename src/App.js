@@ -4,10 +4,11 @@ import { ViewData } from "./ViewData";
 import { Button } from "./Button";
 import { AddData } from "./AddData";
 
+//npm install moment --save
 function App() {
   const [data, setData] = useState(jsonData.data);
 
-  const [isOpen, setIsOpen] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   function handleClickAddData() {
     setIsOpen(!isOpen);
@@ -20,10 +21,9 @@ function App() {
 
   return (
     <>
-      {console.log(data)}
       <ViewData data={data} />
       {isOpen || <Button onHandle={handleClickAddData}>Add Data</Button>}
-      {isOpen && <AddData onSetData={handleAddData} />}
+      {isOpen ? <AddData onSetData={handleAddData} /> : null}
     </>
   );
 }
